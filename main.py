@@ -46,6 +46,11 @@ def genParagraph(api_key):
     return
 
 
+def review(api_key):
+    # TODO
+    return
+
+
 def main():
     try:
         # Load OpenAI API key
