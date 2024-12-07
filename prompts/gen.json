@@ -1,0 +1,21 @@
+{
+		"topic": "Write a detailed paragraph about the following topic: An Opening paragraph for my statement of purpose for Ph.D. application in Computer Science.",
+
+		"general_requirements": "you should only return the message itself.",
+
+		"conjunction0": "You should ONLY write about the following bullet points provided:",
+
+		"bullet_points":[
+			"express my motivation in applying for a Ph.D.",
+			"my primary research focus is in programming language, compilers",
+			"express how much i love programming analysis using detailed examples"
+		],
+		
+		"output_format": "Your output format should be [A SHORT SENTENCE OR FEW WORDS SUMMARIZED TOPIC] + [CONTENT].",
+
+		"words_limit": "Your response should control within 300 words.",
+
+		"rule_simple": "Use Simplified sentence and do NOT use complex sentence structures. Avoid using overly descriptive or contain redundant information. Ensure each sentence contain only one or two main idea(s).",
+
+		"rule_formal": "Adjust the tone for formal, persuasive as needed. Prioritize clarity and brevity"
+}
