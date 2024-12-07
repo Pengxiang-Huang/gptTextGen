@@ -1,0 +1,4 @@
+{
+		"topic": "",
+    "template": "Write a detailed paragraph about the following topic: {input}. Ensure the tone is engaging and professional."
+}
