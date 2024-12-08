@@ -30,9 +30,12 @@ def genParagraph(api_key):
     prompt_path = f"{INPUT_PROMPT_FOLDER}gen.json"
     prompt_data = load_json(prompt_path)
 
-    formatted_prompt = json.dumps(prompt_data, separators=(",", ":"))
+    # Format the prompt (remove the keys, conjunct the values)
+    prompt_values = list(prompt_data.values())
+    formatted_prompt = [", ".join(v) if isinstance(v, list) else v for v in prompt_values]
+    formatted_prompt = " ".join(formatted_prompt)
 
-    print(formatted_prompt)
+    print(f"\nRequest for Paragraph generation is: {formatted_prompt}")
 
     # Generate paragraph
     paragraph = requestGpt(api_key, formatted_prompt)
@@ -42,7 +45,7 @@ def genParagraph(api_key):
     output_file = f"{OUTPUT_FOLDER}paragraph.txt"
     write_to_file(output_file, paragraph)
     logging.info(f"Paragraph generated and saved to: {output_file}")
-    print(f"Paragraph generated and saved to: {output_file}")
+    print(f"\nParagraph generated and saved to: {output_file}")
     return
 
 
