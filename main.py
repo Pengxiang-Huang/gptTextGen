@@ -1,8 +1,7 @@
 import os
 import logging
-import json
 from lib.request import requestGpt
-from lib.utils import load_api_key, load_json, write_to_file
+from lib.utils import load_api_key, load_json, write_to_file, contact_prompts
 
 # Configure logging
 LOG_FILE = "output/log.txt"
@@ -27,18 +26,17 @@ def list_prompts(folder):
 
 
 def genParagraph(api_key):
+    """ Generate a paragraph based on prompts, redirect to the output dir"""
     prompt_path = f"{INPUT_PROMPT_FOLDER}gen.json"
     prompt_data = load_json(prompt_path)
 
     # Format the prompt (remove the keys, conjunct the values)
-    prompt_values = list(prompt_data.values())
-    formatted_prompt = [", ".join(v) if isinstance(v, list) else v for v in prompt_values]
-    formatted_prompt = " ".join(formatted_prompt)
+    formatted_prompts = contact_prompts(prompt_data)
 
-    print(f"\nRequest for Paragraph generation is: {formatted_prompt}")
+    print(f"\nRequest for Paragraph generation is: {formatted_prompts}")
 
     # Generate paragraph
-    paragraph = requestGpt(api_key, formatted_prompt)
+    paragraph = requestGpt(api_key, formatted_prompts)
     logging.info(f"generate an paragraph: {paragraph}")
 
     # Save to output
@@ -63,7 +61,8 @@ def main():
         # List available prompts
         prompts = list_prompts(INPUT_PROMPT_FOLDER)
         if not prompts:
-            raise FileNotFoundError("No prompt files found in the prompts/ folder.")
+            raise FileNotFoundError("No prompt files found in the \
+                                     prompts/ folder.")
 
         print("Available Prompts:")
         for i, prompt_file in enumerate(prompts, start=1):

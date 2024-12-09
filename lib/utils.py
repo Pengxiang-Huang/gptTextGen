@@ -28,3 +28,16 @@ def write_to_file(file_path, content):
             file.write(content)
     except Exception as e:
         raise IOError(f"Error writing to file '{file_path}': {e}")
+
+
+def contact_prompts(prompt_data):
+    """ contact prompts from json data to a string """
+    """ keys are dropped, only contact values """
+    try:
+        prompt_values = list(prompt_data.values())
+        contacted_prompt = [", ".join(v) if isinstance(v, list)
+                            else v for v in prompt_values]
+        formatted_prompt = " ".join(contacted_prompt)
+        return formatted_prompt
+    except Exception as e:
+        raise ValueError(f"Invalid json format in prompt data: {e}.")
