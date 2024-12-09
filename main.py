@@ -1,7 +1,8 @@
 import os
 import logging
 from lib.request import requestGpt
-from lib.utils import load_api_key, load_json, write_to_file, contact_prompts
+from lib.utils import load_api_key, load_json, write_to_file, \
+     contact_prompts, read_content
 
 # Configure logging
 LOG_FILE = "output/log.txt"
@@ -44,10 +45,41 @@ def genParagraph(api_key):
     write_to_file(output_file, paragraph)
     logging.info(f"Paragraph generated and saved to: {output_file}")
     print(f"\nParagraph generated and saved to: {output_file}")
+
     return
 
 
-def review(api_key):
+def reviewParagraph(api_key):
+    """ Review the paragraph in the output dir based on the prompts """
+    prompt_path = f"{INPUT_PROMPT_FOLDER}review.json"
+    prompt_data = load_json(prompt_path)
+
+    # Format the prompt (remove the keys, conjunct the values)
+    formatted_prompts = contact_prompts(prompt_data)
+    print(f"\nRequest for Paragraph review is: {formatted_prompts}")
+
+    # read the paragraph from the output dir
+    paragraph_path = f"{OUTPUT_FOLDER}paragraph.txt"
+    paragraph = read_content(paragraph_path)
+
+    # contact the prompt with paragraph
+    conjunction = "Below is the paragraph you need to review: "
+    full_content = formatted_prompts + conjunction + paragraph
+
+    # Review paragraph
+    review = requestGpt(api_key, full_content)
+
+    # Save to the output
+    output_file = f"{OUTPUT_FOLDER}review.txt"
+    write_to_file(output_file, review)
+    logging.info(f"Review generated and saved to: {output_file}")
+    print(f"\nReview generated and saved to: {output_file}")
+
+    return
+
+
+def reviewDocument(api_key, doc_name):
+    """ review the document in the input dir based on the prompts """
     # TODO
     return
 
@@ -69,6 +101,8 @@ def main():
             print(f"{i}. {prompt_file}")
 
         genParagraph(api_key)
+
+        reviewParagraph(api_key)
 
     except Exception as e:
         logging.error(f"Error: {e}")

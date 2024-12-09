@@ -31,7 +31,7 @@ def write_to_file(file_path, content):
 
 
 def contact_prompts(prompt_data):
-    """ contact prompts from json data to a string """
+    """ Contact prompts from json data to a string """
     """ keys are dropped, only contact values """
     try:
         prompt_values = list(prompt_data.values())
@@ -41,3 +41,14 @@ def contact_prompts(prompt_data):
         return formatted_prompt
     except Exception as e:
         raise ValueError(f"Invalid json format in prompt data: {e}.")
+
+
+def read_content(file_path):
+    """ Read the paragraph content from the output dir """
+    try:
+        with open(file_path, "r") as file:
+            return file.read().strip()
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Paragraph file '{file_path}' not found.")
+    except Exception as e:
+        raise IOError(f"Error reading from file '{file_path}': {e}")

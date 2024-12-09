@@ -1,2 +1,20 @@
+{
+		"topic": "Review and polish this paragraph for me, I am writing a statement of purpose for my Ph.D application in computer science",
 
+		"general_requirements": "you should only return the polished paragraph itself.",
+
+		"conjunction0": "You should review based on the following bullet points provided:",
+
+		"bullet_points":[
+			"express my motivation in applying for a Ph.D..",
+			"my primary research focus is in programming language, compilers.",
+			"express how much i love programming analysis using detailed examples."
+		],
+
+		"words_limit": "Your response should control within 150 words.",
+
+		"rule_simple": "Use Simplified sentence and do NOT use complex sentence structures. Avoid using overly descriptive or contain redundant information. Ensure each sentence contain only one or two main idea(s).",
+
+		"rule_formal": "Adjust the tone for formal, persuasive as needed. Prioritize clarity and brevity."
+}
 
